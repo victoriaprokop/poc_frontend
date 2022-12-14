@@ -1,0 +1,21 @@
+:host {
+    display: block;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.mat-primary {
+    margin-bottom: 40px;
+}
+
+.actions-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+    padding: 0;
+
+    li {
+        margin: 10px;
+    }
+}

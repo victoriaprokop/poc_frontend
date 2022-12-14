@@ -1,0 +1,25 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.material-symbols-outlined {
+    vertical-align: middle;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.mdc-dialog {
+    .mdc-dialog__actions {
+        padding: 20px 24px 20px 24px;
+    }
+}
