@@ -3,6 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'fetcher',
+    pathMatch: 'full'
+  },
+  {
     path: 'fetcher',
     loadChildren: () => import('./pages/fetcher/fetcher.module').then((m) => m.FetcherModule)
   }

@@ -3,31 +3,31 @@
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Server Name</mat-label>
-            <input matInput>
+            <input matInput [value]="data.name">
         </mat-form-field>
     </div>
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Server Description</mat-label>
-            <input matInput>
+            <input matInput [value]="data.description">
         </mat-form-field>
     </div>
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Server Address</mat-label>
-            <input matInput>
+            <input matInput [value]="data.server">
         </mat-form-field>
     </div>
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Domains</mat-label>
-            <input matInput>
+            <input matInput [value]="data.domains">
         </mat-form-field>
     </div>
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Username</mat-label>
-            <input matInput>
+            <input matInput [value]="data.username">
         </mat-form-field>
     </div>
     <div>
@@ -38,30 +38,30 @@
     </div>
     <div>
         <mat-form-field appearance="fill">
-            <mat-label>Favorite food</mat-label>
-            <mat-select>
-            <mat-option *ngFor="let option of protocolOptions" [value]="option">{{ option }}</mat-option>
+            <mat-label>Protocol</mat-label>
+            <mat-select [value]="data.protocol">
+                <mat-option *ngFor="let option of protocolOptions" [value]="option">{{ option }}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Port</mat-label>
-            <input matInput>
+            <input matInput [value]="data.port">
         </mat-form-field>
     </div>
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Mailbox Name</mat-label>
-            <input matInput>
+            <input matInput [value]="data.mailbox">
         </mat-form-field>
     </div>
     <div>
         <label id="radio-group-label">Deletion From Server</label>
         <div>
-            <mat-radio-group aria-labelledby="radio-group-label" class="radio-group">
-                <mat-radio-button class="radio-button" *ngFor="let option of deletionOptions" [value]="option.key">
-                    {{ option.value }}
+            <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [value]="data.quick_delete">
+                <mat-radio-button class="radio-button" *ngFor="let option of deletionOptions">
+                    {{ option.title }}
                 </mat-radio-button>
             </mat-radio-group>
         </div>
@@ -69,7 +69,7 @@
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Fetch Timeout</mat-label>
-            <input matInput>
+            <input matInput [value]="data.time_limit">
         </mat-form-field>
     </div>
 </div>

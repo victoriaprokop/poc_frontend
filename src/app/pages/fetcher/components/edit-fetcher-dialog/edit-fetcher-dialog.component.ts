@@ -1,20 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FetcherApiModel } from '../../models/fetcher-api-model';
 
 @Component({
   selector: 'app-edit-fetcher-dialog',
   templateUrl: './edit-fetcher-dialog.component.html',
   styleUrls: ['./edit-fetcher-dialog.component.scss']
 })
-export class EditFetcherDialogComponent {
+export class EditFetcherDialogComponent implements OnInit {
   public protocolOptions = ["IMAP", "IMAP2", "IMAP3", "IMAP4"];
-  public deletionOptions: { key: string, value: string }[] = [
+  public deletionOptions: { title: string, value: boolean }[] = [
     {
-      key: "onceBacked",
-      value: "Delete Emails Once Backed Up (More Secure)"
+      title: "Delete Emails Once Backed Up (More Secure)",
+      value: false
     },
     {
-      key: "immediately",
-      value: "Delete Emails Immediately (Faster)"
+      title: "Delete Emails Immediately (Faster)",
+      value: true
     }
   ];
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: FetcherApiModel
+  ) {}
+
+  ngOnInit(): void {
+    console.log(this.data);
+
+    debugger
+  }
 }

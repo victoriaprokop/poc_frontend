@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input'
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Components
 import { FetcherComponent } from './pages/fetcher/fetcher.component';
@@ -44,7 +45,8 @@ import { ScheduleProductionDialogComponent } from './components/schedule-product
     MatFormFieldModule,
     MatSelectModule,
     MatRadioModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ]
 })
 export class FetcherModule { }
