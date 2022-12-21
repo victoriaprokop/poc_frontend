@@ -1,79 +1,81 @@
 <h1 mat-dialog-title>Edit Fetcher</h1>
 <div mat-dialog-content>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Server Name</mat-label>
-            <input matInput [value]="data.name">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Server Description</mat-label>
-            <input matInput [value]="data.description">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Server Address</mat-label>
-            <input matInput [value]="data.server">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Domains</mat-label>
-            <input matInput [value]="data.domains">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input matInput [value]="data.username">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input matInput>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Protocol</mat-label>
-            <mat-select [value]="data.protocol">
-                <mat-option *ngFor="let option of protocolOptions" [value]="option">{{ option }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Port</mat-label>
-            <input matInput [value]="data.port">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Mailbox Name</mat-label>
-            <input matInput [value]="data.mailbox">
-        </mat-form-field>
-    </div>
-    <div>
-        <label id="radio-group-label">Deletion From Server</label>
+    <form [formGroup]="fetcherDataForm">
         <div>
-            <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [value]="data.quick_delete">
-                <mat-radio-button class="radio-button" *ngFor="let option of deletionOptions">
-                    {{ option.title }}
-                </mat-radio-button>
-            </mat-radio-group>
+            <mat-form-field appearance="fill">
+                <mat-label>Server Name</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
         </div>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Fetch Timeout</mat-label>
-            <input matInput [value]="data.time_limit">
-        </mat-form-field>
-    </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Server Description</mat-label>
+                <input matInput formControlName="description">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Server Address</mat-label>
+                <input matInput formControlName="address">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Domains</mat-label>
+                <input matInput formControlName="domains">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="username">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Protocol</mat-label>
+                <mat-select formControlName="protocol">
+                    <mat-option *ngFor="let option of protocolOptions" [value]="option">{{ option }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Port</mat-label>
+                <input matInput formControlName="port">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Mailbox Name</mat-label>
+                <input matInput formControlName="mailbox">
+            </mat-form-field>
+        </div>
+        <div>
+            <label id="radio-group-label">Deletion From Server</label>
+            <div>
+                <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" formControlName="quick_delete">
+                    <mat-radio-button class="radio-button" *ngFor="let option of deletionOptions" [value]="option.value">
+                        {{ option.title }}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Fetch Timeout</mat-label>
+                <input matInput formControlName="time_limit">
+            </mat-form-field>
+        </div>
+    </form>
 </div>
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary" [mat-dialog-close]="" cdkFocusInitial>Save</button>
-    <button mat-button [mat-dialog-close]="">Cancel</button>
+    <button mat-raised-button color="primary" (click)="updateFetcher()" [disabled]="!fetcherDataForm.valid" cdkFocusInitial>Save</button>
+    <button mat-button mat-dialog-close>Cancel</button>
 </div>

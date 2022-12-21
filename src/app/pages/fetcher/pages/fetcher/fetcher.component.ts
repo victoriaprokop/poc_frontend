@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddFetcherDialogComponent } from '../../components/add-fetcher-dialog/add-fetcher-dialog.component';
 import { DeleteFetcherDialogComponent } from '../../components/delete-fetcher-dialog/delete-fetcher-dialog.component';
 import { EditFetcherDialogComponent } from '../../components/edit-fetcher-dialog/edit-fetcher-dialog.component';
@@ -22,24 +22,13 @@ export class FetcherComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private _fetcherService: FetcherService
+    private _fetcherService: FetcherService,
+    private _snackBar: MatSnackBar
   ) {}
 
   public ngOnInit(): void {
       this._getFetchers();
   }
-
-  // public onCheckAll(event: MatCheckboxChange) {
-  //   this.dataSource.forEach((fetcher) => {
-  //     fetcher.checked = event.checked
-  //   });
-
-  //   this.selectedFetchers = event.checked ? this.dataSource : [];
-  // }
-
-  // public onCheckOne(event: MatCheckboxChange, fetcherId: string) {
-
-  // }
 
   checkAll(event: MatCheckboxChange) {
     this.dataSource.forEach((x) => (x.checked = event.checked));
@@ -58,22 +47,56 @@ export class FetcherComponent implements OnInit {
   public openAddFetcherDialog(): void {
     const dialogRef = this.dialog.open(AddFetcherDialogComponent);
 
-    dialogRef.afterClosed().subscribe(() => {
-      this._getFetchers();
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._snackBar.open(`The fetcher ${result.name} was successfully created.`, 'x', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+
+        this._getFetchers();
+      }
     });
   }
 
   public openEditDialog(fetcher: FetcherApiModel): void {
-    this.dialog.open(EditFetcherDialogComponent, {
+    const dialogRef = this.dialog.open(EditFetcherDialogComponent, {
       data: fetcher,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._snackBar.open(`The fetcher ${result.name} was successfully updated.`, 'x', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+
+        this._getFetchers();
+      }
     });
   }
 
   public openDeleteFetcherDialog(fetcher: FetcherApiModel): void {
-    this.dialog.open(DeleteFetcherDialogComponent, {
+    const dialogRef = this.dialog.open(DeleteFetcherDialogComponent, {
       data: fetcher,
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._snackBar.open(`The fetcher ${result.name} was successfully deleted.`, 'x', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+
+        this._getFetchers();
+      }
+    });
   }
+
+  public restartFetcher() {}
 
   private _getFetchers(): void {
     this._fetcherService.getFetchers().subscribe((result: FetcherApiModel[]) =>  this.dataSource = result);

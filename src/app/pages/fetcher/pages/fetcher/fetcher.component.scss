@@ -19,3 +19,36 @@
         margin: 10px;
     }
 }
+
+.mat-mdc-row {
+    position: relative;
+}
+
+.mat-column-state {
+    overflow: visible;
+
+    .item-actions-button {
+        &:hover {
+            & + .item-actions {
+                display: flex;
+            }
+        }
+    }
+
+    .item-actions {
+        align-items: center;
+        background: #ddd;
+        display: none;
+        height: 100%;
+        justify-content: space-evenly;
+        left: 0;
+        right: 0;
+        top: 0;
+        position: absolute;
+        width: 100%;
+
+        &:hover {
+            display: flex;
+        }
+    }
+}

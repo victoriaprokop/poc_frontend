@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { FetcherApiModel } from '../../models/fetcher-api-model';
 import { FetcherPostRequest } from '../../models/fetcher-post-request';
 import { FetcherService } from '../../services/fetcher.service';
 
@@ -36,7 +38,8 @@ export class AddFetcherDialogComponent {
   });
 
   constructor(
-    private _fetcherService: FetcherService
+    private _fetcherService: FetcherService,
+    private _dialogRef: MatDialogRef<AddFetcherDialogComponent>
   ) {}
 
   public addFetcher() {
@@ -57,13 +60,8 @@ export class AddFetcherDialogComponent {
       domains: formValue.domains
     }
 
-    this._fetcherService.createFetcher(newFetcherData).subscribe(
-      (result) => {
-        console.log(result);
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
+    this._fetcherService.createFetcher(newFetcherData).subscribe((fetcher: FetcherApiModel) => {
+      this._dialogRef.close(fetcher);
+    });
   }
 }

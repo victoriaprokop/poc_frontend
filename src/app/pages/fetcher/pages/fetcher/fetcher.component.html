@@ -1,7 +1,7 @@
 <h1>Email fetchers</h1>
 
 <button mat-raised-button color="primary" (click)="openAddFetcherDialog()">
-    <span class="material-symbols-outlined">add</span>
+    <mat-icon>add</mat-icon>
     Fetcher
 </button>
 
@@ -9,50 +9,50 @@
     <ul class="actions-wrapper">
         <li>
             <button mat-button [disabled]="!selectedFetchers.length || selectedFetchers.length > 1" (click)="openEditDialog(selectedFetchers[0])">
-                <span class="material-symbols-outlined">edit</span>
+                <mat-icon>edit</mat-icon>
                 Edit
             </button>
         </li>
         <li>
             <button mat-button [disabled]="!selectedFetchers.length || selectedFetchers.length > 1">
-                <span class="material-symbols-outlined">schedule</span>
+                <mat-icon>schedule</mat-icon>
                 Schedule
             </button>
         </li>
         <li>
             <button mat-button [disabled]="!selectedFetchers.length || selectedFetchers.length > 1">
-                <span class="material-symbols-outlined">zoom_in</span>
+                <mat-icon>zoom_in</mat-icon>
                 Status
             </button>
         </li>
         <li>
             <button mat-button [disabled]="!selectedFetchers.length || selectedFetchers.length > 1">
-                <span class="material-symbols-outlined">check_circle</span>
+                <mat-icon>check_circle</mat-icon>
                 Test
             </button>
         </li>
         |
         <li>
             <button mat-button color="accent" [disabled]="!selectedFetchers.length">
-                <span class="material-symbols-outlined">arrow_upward</span>
+                <mat-icon>arrow_upward</mat-icon>
                 Activate
             </button>
         </li>
         <li>
             <button mat-button color="warn" [disabled]="!selectedFetchers.length">
-                <span class="material-symbols-outlined">arrow_downward</span>
+                <mat-icon>arrow_downward</mat-icon>
                 Disable
             </button>
         </li>
         <li>
             <button mat-button [disabled]="!selectedFetchers.length">
-                <span class="material-symbols-outlined">restart_alt</span>
+                <mat-icon>restart_alt</mat-icon>
                 Restart
             </button>
         </li>
         <li>
-            <button mat-button color="warn" [disabled]="!selectedFetchers.length" (click)="openDeleteFetcherDialog(selectedFetchers[0])">
-                <span class="material-symbols-outlined">delete</span>
+            <button mat-button color="warn" [disabled]="!selectedFetchers.length || selectedFetchers.length > 1" (click)="openDeleteFetcherDialog(selectedFetchers[0])">
+                <mat-icon>delete</mat-icon>
                 Delete
             </button>
         </li>
@@ -86,7 +86,7 @@
           <th mat-header-cell *matHeaderCellDef>Protocol</th>
           <td mat-cell *matCellDef="let element">{{ element.protocol }}</td>
         </ng-container>
-    
+
         <!-- Download Failures Column -->
         <ng-container matColumnDef="download_failures">
             <th mat-header-cell *matHeaderCellDef>Download Failures</th>
@@ -96,7 +96,39 @@
         <!-- State Column -->
         <ng-container matColumnDef="state">
             <th mat-header-cell *matHeaderCellDef>State</th>
-            <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+            <td mat-cell *matCellDef="let element">
+                {{ element.state }}
+
+                <button mat-icon-button class="item-actions-button">
+                    <mat-icon>more_horiz</mat-icon>
+                </button>
+                <div class="item-actions">
+                    <button mat-button (click)="openEditDialog(element)">
+                        <mat-icon>edit</mat-icon>
+                        Edit
+                    </button>
+                    <button mat-button>
+                        <mat-icon>schedule</mat-icon>
+                        Schedule
+                    </button>
+                    <button mat-button>
+                        <mat-icon>zoom_in</mat-icon>
+                        Status
+                    </button>
+                    <button mat-button>
+                        <mat-icon>check_circle</mat-icon>
+                        Test
+                    </button>
+                    <button mat-button color="warn">
+                        <mat-icon>arrow_downward</mat-icon>
+                        Disable
+                    </button>
+                    <button mat-button color="warn" (click)="openDeleteFetcherDialog(element)">
+                        <mat-icon>delete</mat-icon>
+                        Delete
+                    </button>
+                </div>
+            </td>
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -105,5 +137,5 @@
 </ng-container>
 
 <ng-template #noItems>
-    <app-no-fetchers></app-no-fetchers>
+    <app-no-fetchers (addFetcher)="openAddFetcherDialog()"></app-no-fetchers>
 </ng-template>

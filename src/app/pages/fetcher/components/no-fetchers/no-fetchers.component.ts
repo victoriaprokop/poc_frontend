@@ -1,7 +1,4 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { FetcherService } from '../../services/fetcher.service';
-import { AddFetcherDialogComponent } from '../add-fetcher-dialog/add-fetcher-dialog.component';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-no-fetchers',
@@ -9,11 +6,5 @@ import { AddFetcherDialogComponent } from '../add-fetcher-dialog/add-fetcher-dia
   styleUrls: ['./no-fetchers.component.scss']
 })
 export class NoFetchersComponent {
-  constructor(
-    public dialog: MatDialog,
-  ) {}
-
-  public openAddFetcherDialog(): void {
-    this.dialog.open(AddFetcherDialogComponent);
-  }
+  @Output() public addFetcher = new EventEmitter<void>();
 }
