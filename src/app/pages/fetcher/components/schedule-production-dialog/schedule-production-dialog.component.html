@@ -1,32 +1,41 @@
 <h1 mat-dialog-title>Schedule Production Mail Fetcher</h1>
 <div mat-dialog-content>
-    <div>
-        <label id="radio-group-label">Fetcher Uptime</label>
+    <form [formGroup]="scheduleForm">
         <div>
-            <mat-radio-group aria-labelledby="radio-group-label" class="radio-group">
-                <mat-radio-button class="radio-button" *ngFor="let option of fetcherUptime" [value]="option.key">
-                    {{ option.value }}
-                </mat-radio-button>
-            </mat-radio-group>
+            <label id="radio-group-label">Fetcher Uptime</label>
+            <div>
+                <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" formControlName="fetcherUptime">
+                    <mat-radio-button class="radio-button" *ngFor="let option of fetcherUptime" [value]="option.key">
+                        {{ option.value }}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
         </div>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Server Description</mat-label>
-            <input matInput>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-label>Week days</mat-label>
-    </div>
-    <div>
-        <mat-label>Shutdown time</mat-label>
-    </div>
-    <div>
-        <mat-label>Reactivation time</mat-label>
-    </div>
+        <ng-container *ngIf="scheduleForm.value.fetcherUptime">
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Server Description</mat-label>
+                    <input matInput formControlName="description">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-label>Week days</mat-label>
+                <app-week-days-selector (onDaySelection)="selectedDays = $event"></app-week-days-selector>
+            </div>
+            <div>
+                <mat-label class="timepicker-label">Shutdown time</mat-label>
+                <input [ngxTimepicker]="shutdownDefaultValue" formControlName="shutdown" [format]="24" readonly class="timepicker-field shutdown-time">
+                <ngx-material-timepicker #shutdownDefaultValue></ngx-material-timepicker>
+            </div>
+            <div>
+                <mat-label class="timepicker-label">Reactivation time</mat-label>
+                <input [ngxTimepicker]="reactivationDefaultValue" formControlName="reactivation" [format]="24" readonly class="timepicker-field reactivation-time">
+                <ngx-material-timepicker #reactivationDefaultValue></ngx-material-timepicker>
+            </div>
+        </ng-container>
+    </form>
 </div>
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary" [mat-dialog-close]="" cdkFocusInitial>Save</button>
-    <button mat-button [mat-dialog-close]="">Cancel</button>
+    <button mat-raised-button color="primary" mat-dialog-close [disabled]="!scheduleForm.valid" cdkFocusInitial (click)="save()">Save</button>
+    <button mat-button mat-dialog-close>Cancel</button>
 </div>

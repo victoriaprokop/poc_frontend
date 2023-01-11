@@ -18,8 +18,45 @@ body {
     padding: 0;
 }
 
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
 .mdc-dialog {
     .mdc-dialog__actions {
         padding: 20px 24px 20px 24px;
+    }
+}
+
+.timepicker-backdrop-overlay, .timepicker-overlay {
+    z-index: 9999 !important;
+}
+
+.timepicker-field {
+    background-color: whitesmoke;
+    border-top-left-radius: var(--mdc-shape-small, 4px);
+    border-top-right-radius: var(--mdc-shape-small, 4px);
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-color: rgba(0, 0, 0, 0.42);
+    border-width: 0 0 1px 0;
+    display: block;
+    font-family: "Roboto";
+    font-size: 16px;
+    outline: none;
+    padding: 18px 16px;
+    width: 100%;
+
+    &:hover {
+        background-color: rgba(0,0,0,.075);
+        border-bottom-color: rgba(0, 0, 0, 0.82);
     }
 }

@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddFetcherDialogComponent } from '../../components/add-fetcher-dialog/add-fetcher-dialog.component';
 import { DeleteFetcherDialogComponent } from '../../components/delete-fetcher-dialog/delete-fetcher-dialog.component';
 import { EditFetcherDialogComponent } from '../../components/edit-fetcher-dialog/edit-fetcher-dialog.component';
+import { ScheduleProductionDialogComponent } from '../../components/schedule-production-dialog/schedule-production-dialog.component';
 import { FetcherApiModel } from '../../models/fetcher-api-model';
 import { FetcherService } from '../../services/fetcher.service';
 
@@ -27,7 +28,7 @@ export class FetcherComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-      this._getFetchers();
+    this._getFetchers();
   }
 
   checkAll(event: MatCheckboxChange) {
@@ -38,10 +39,6 @@ export class FetcherComponent implements OnInit {
 
   checkItem() {
     this.selectedFetchers = this.dataSource.filter((x) => x.checked);
-  }
-
-  public onCheck(fetcher: FetcherApiModel) {
-    console.log(fetcher);
   }
 
   public openAddFetcherDialog(): void {
@@ -97,6 +94,22 @@ export class FetcherComponent implements OnInit {
   }
 
   public restartFetcher() {}
+
+  public openScheduleProduction(fetcherId: string): void {
+    const dialogRef = this.dialog.open(ScheduleProductionDialogComponent, {
+      data: fetcherId,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._snackBar.open(`The fetcher ${result.name} schedule was successfully updated.`, 'x', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+      }
+    });
+  }
 
   private _getFetchers(): void {
     this._fetcherService.getFetchers().subscribe((result: FetcherApiModel[]) =>  this.dataSource = result);

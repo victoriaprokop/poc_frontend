@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 // Components
 import { FetcherComponent } from './pages/fetcher/fetcher.component';
@@ -21,6 +22,7 @@ import { EditFetcherDialogComponent } from './components/edit-fetcher-dialog/edi
 import { AddFetcherDialogComponent } from './components/add-fetcher-dialog/add-fetcher-dialog.component';
 import { DeleteFetcherDialogComponent } from './components/delete-fetcher-dialog/delete-fetcher-dialog.component';
 import { ScheduleProductionDialogComponent } from './components/schedule-production-dialog/schedule-production-dialog.component';
+import { WeekDaysSelectorModule } from 'src/app/shared/modules/week-days-selector/week-days-selector/week-days-selector.module';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { ScheduleProductionDialogComponent } from './components/schedule-product
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxMaterialTimepickerModule,
+    WeekDaysSelectorModule
   ]
 })
 export class FetcherModule { }

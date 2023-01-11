@@ -32,4 +32,32 @@ export class FetcherService {
   public restartFetcher(fetcherId: string) {
     return this._http.post(`${this.apiUrl}/fetcher/${fetcherId}`, fetcherId);
   }
+
+  public retrieveFetcherschedules(): Observable<Fetcherschedule[]> {
+    return this._http.get<Fetcherschedule[]>(this.apiUrl + '/fetcherschedule');
+  }
+
+  public getFetcherschedule(fetcherId: string): Observable<Fetcherschedule> {
+    return this._http.get<Fetcherschedule>(`${this.apiUrl}/fetcherschedule/${fetcherId}`);
+  }
+
+  public createFetcherschedule(request: any): Observable<Fetcherschedule> {
+    return this._http.post<Fetcherschedule>(`${this.apiUrl}/fetcherschedule`, request);
+  }
+
+  public putFetcherschedule(fetcherId: string, request: any) {
+    return this._http.put(`${this.apiUrl}/fetcherschedule/${fetcherId}`, request);
+  }
+
+  public deleteFetcherschedule(fetcherId: string) {
+    return this._http.delete(`${this.apiUrl}/fetcherschedule/${fetcherId}`);
+  }
+}
+
+export interface Fetcherschedule {
+  fetcher_id: number,
+  downtime_days: number[],
+  downtime_start: string,
+  downtime_end: string,
+  id?: number
 }
