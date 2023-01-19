@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FetcherApiModel } from '../../models/fetcher-api-model';
@@ -10,8 +10,25 @@ import { FetcherService } from '../../services/fetcher.service';
   templateUrl: './edit-fetcher-dialog.component.html',
   styleUrls: ['./edit-fetcher-dialog.component.scss']
 })
-export class EditFetcherDialogComponent {
-  public protocolOptions = ["IMAP", "IMAP2", "IMAP3", "IMAP4"];
+export class EditFetcherDialogComponent implements OnInit {
+  public protocolOptions = [
+    {
+      protocol: 'IMAP',
+      port: '143'
+    },
+    {
+      protocol: 'sIMAP4',
+      port: '993'
+    },
+    {
+      protocol: 'POP3',
+      port: '110'
+    },
+    {
+      protocol: 'sPOP3',
+      port: '995'
+    }
+  ];
   public deletionOptions: { title: string, value: boolean }[] = [
     {
       title: "Delete Emails Once Backed Up (More Secure)",
@@ -27,14 +44,15 @@ export class EditFetcherDialogComponent {
     name: new FormControl(this.data.name, Validators.required),
     description: new FormControl(this.data.description, Validators.required),
     address: new FormControl(this.data.server, Validators.required),
-    domains: new FormControl(this.data.domains, Validators.required),
+    domains: new FormControl(this.data.domains),
     username: new FormControl(this.data.username, Validators.required),
     password: new FormControl('', Validators.required),
     protocol: new FormControl(this.data.protocol, Validators.required),
-    port: new FormControl(this.data.port, Validators.required),
-    mailbox: new FormControl(this.data.mailbox, Validators.required),
+    port: new FormControl({ value: this.data.port, disabled: true}),
+    mailbox: new FormControl(this.data.mailbox || 'inbox', Validators.required),
     quick_delete: new FormControl(this.data.quick_delete, Validators.required),
     time_limit: new FormControl(this.data.time_limit, Validators.required),
+    active: new FormControl(this.data.active)
   });
 
   constructor(
@@ -43,24 +61,57 @@ export class EditFetcherDialogComponent {
     private _dialogRef: MatDialogRef<EditFetcherDialogComponent>
   ) {}
 
+  ngOnInit(): void {
+    this.setMailboxAsInbox(this.fetcherDataForm.controls.protocol.value);
+  }
+
   public updateFetcher() {
-    const formValue: any = this.fetcherDataForm.value;
+    const form: any = this.fetcherDataForm;
+    
+    form.controls.port.enable();
+    form.controls.mailbox.enable();
 
     const newFetcherData: FetcherPostRequest = {
-      name: formValue.name,
-      server: formValue.address,
-      description: formValue.description,
-      username: formValue.username,
-      password: formValue.password,
-      protocol: formValue.protocol,
-      port: formValue.port,
-      quick_delete: formValue.quick_delete,
-      active: true,
-      time_limit: formValue.time_limit,
-      mailbox: formValue.mailbox,
-      domains: formValue.domains
+      name: form.value.name,
+      server: form.value.address,
+      description: form.value.description,
+      username: form.value.username,
+      password: form.value.password,
+      protocol: form.value.protocol,
+      port: form.value.port,
+      quick_delete: form.value.quick_delete,
+      active: form.value.active,
+      time_limit: form.value.time_limit,
+      mailbox: form.value.mailbox,
+      domains: form.value.domains
     }
 
-    this._fetcherService.updateFetcher(this.data.id, newFetcherData).subscribe(() => this._dialogRef.close(true));
+    form.controls.port.disable();
+
+    if (form.controls.mailbox.value === 'inbox') {
+      this.fetcherDataForm.controls.mailbox.disable();
+    }
+
+    this._fetcherService.updateFetcher(this.data.id, newFetcherData).subscribe(() => this._dialogRef.close(newFetcherData.name));
+  }
+
+  public onProtocolValueChange(value: any) {
+    const form = this.fetcherDataForm;
+    const port = this.protocolOptions.find((o) => o.protocol === value)?.port;
+
+    form.controls.port.setValue(port || '');
+
+    this.setMailboxAsInbox(value);
+  }
+
+  private setMailboxAsInbox(protocol: string | null) {
+    const form = this.fetcherDataForm;
+
+    if (protocol === 'POP3' || protocol ===  'sPOP3') {
+      form.controls.mailbox.setValue('inbox');
+      form.controls.mailbox.disable();
+    } else {
+      form.controls.mailbox.enable();
+    }
   }
 }

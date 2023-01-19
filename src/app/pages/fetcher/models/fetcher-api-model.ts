@@ -5,7 +5,7 @@ export interface FetcherApiModel {
     username: string,
     password: string,
     protocol: string,
-    port: number,
+    port: string,
     quick_delete: true,
     active: true,
     time_limit: 0,

@@ -62,9 +62,9 @@ export class FetcherComponent implements OnInit {
       data: fetcher,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this._snackBar.open(`The fetcher ${result.name} was successfully updated.`, 'x', {
+    dialogRef.afterClosed().subscribe((name) => {
+      if (name) {
+        this._snackBar.open(`The fetcher ${name} was successfully updated.`, 'x', {
           duration: 5000,
           horizontalPosition: 'center',
           verticalPosition: 'top'
@@ -80,9 +80,9 @@ export class FetcherComponent implements OnInit {
       data: fetcher,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this._snackBar.open(`The fetcher ${result.name} was successfully deleted.`, 'x', {
+    dialogRef.afterClosed().subscribe((name) => {
+      if (name) {
+        this._snackBar.open(`The fetcher ${name} was successfully deleted.`, 'x', {
           duration: 5000,
           horizontalPosition: 'center',
           verticalPosition: 'top'
@@ -100,9 +100,9 @@ export class FetcherComponent implements OnInit {
       data: fetcherId,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this._snackBar.open(`The fetcher ${result.name} schedule was successfully updated.`, 'x', {
+    dialogRef.afterClosed().subscribe((name) => {
+      if (name) {
+        this._snackBar.open(`The fetcher ${name} schedule was successfully updated.`, 'x', {
           duration: 5000,
           horizontalPosition: 'center',
           verticalPosition: 'top'

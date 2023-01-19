@@ -16,6 +16,6 @@ export class DeleteFetcherDialogComponent {
   ) {}
 
   deleteFetcher() {
-    this._fetcherService.deleteFetcher(this.data.id).subscribe(() => this._dialogRef.close(true));
+    this._fetcherService.deleteFetcher(this.data.id).subscribe(() => this._dialogRef.close(this.data.name));
   }
 }

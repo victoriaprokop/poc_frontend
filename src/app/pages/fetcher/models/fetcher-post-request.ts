@@ -5,7 +5,7 @@ export interface FetcherPostRequest {
     username: string,
     password: string,
     protocol: string,
-    port: number,
+    port: string,
     quick_delete: boolean,
     active: boolean,
     time_limit: number,
