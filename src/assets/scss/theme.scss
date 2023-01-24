@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$intradyn-primary: mat.define-palette(mat.$indigo-palette, 500);
+$intradyn-accent: mat.define-palette(mat.$green-palette);
+
+$intradyn-theme: mat.define-light-theme((
+    color: (
+        primary: $intradyn-primary,
+        accent: $intradyn-accent,
+    ),
+));
+
+@include mat.button-theme($intradyn-theme);

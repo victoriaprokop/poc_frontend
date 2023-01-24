@@ -48,7 +48,7 @@ export class EditFetcherDialogComponent implements OnInit {
     username: new FormControl(this.data.username, Validators.required),
     password: new FormControl('', Validators.required),
     protocol: new FormControl(this.data.protocol, Validators.required),
-    port: new FormControl({ value: this.data.port, disabled: true}),
+    port: new FormControl(this.data.port, Validators.required),
     mailbox: new FormControl(this.data.mailbox || 'inbox', Validators.required),
     quick_delete: new FormControl(this.data.quick_delete, Validators.required),
     time_limit: new FormControl(this.data.time_limit, Validators.required),
@@ -67,8 +67,7 @@ export class EditFetcherDialogComponent implements OnInit {
 
   public updateFetcher() {
     const form: any = this.fetcherDataForm;
-    
-    form.controls.port.enable();
+
     form.controls.mailbox.enable();
 
     const newFetcherData: FetcherPostRequest = {
@@ -85,8 +84,6 @@ export class EditFetcherDialogComponent implements OnInit {
       mailbox: form.value.mailbox,
       domains: form.value.domains
     }
-
-    form.controls.port.disable();
 
     if (form.controls.mailbox.value === 'inbox') {
       this.fetcherDataForm.controls.mailbox.disable();

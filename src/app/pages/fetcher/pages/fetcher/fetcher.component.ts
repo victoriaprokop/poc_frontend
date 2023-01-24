@@ -16,8 +16,6 @@ import { FetcherService } from '../../services/fetcher.service';
 })
 export class FetcherComponent implements OnInit {
   public displayedColumns: string[] = ['checkbox',  'name',  'host',  'protocol', 'download_failures', 'state'];
-
-  public checkedAll: boolean = false;
   public dataSource: FetcherApiModel[] = [];
   public selectedFetchers: FetcherApiModel[] = []
 
@@ -75,14 +73,14 @@ export class FetcherComponent implements OnInit {
     });
   }
 
-  public openDeleteFetcherDialog(fetcher: FetcherApiModel): void {
+  public openDeleteFetcherDialog(fetchers: FetcherApiModel[]): void {
     const dialogRef = this.dialog.open(DeleteFetcherDialogComponent, {
-      data: fetcher,
+      data: fetchers,
     });
 
-    dialogRef.afterClosed().subscribe((name) => {
-      if (name) {
-        this._snackBar.open(`The fetcher ${name} was successfully deleted.`, 'x', {
+    dialogRef.afterClosed().subscribe((data: FetcherApiModel[]) => {
+      if (data.length) {
+        this._snackBar.open(`${data.length === 1 ? 'The fetcher ' + data[0].name + ' was' : 'Fetchers ' + data.map(f => f.name).join(', ') + ' were'} successfully deleted.`, 'x', {
           duration: 5000,
           horizontalPosition: 'center',
           verticalPosition: 'top'
@@ -93,7 +91,25 @@ export class FetcherComponent implements OnInit {
     });
   }
 
-  public restartFetcher() {}
+  public activateFetcher() {
+    const ids: string[] = this.selectedFetchers.map(fetcher => fetcher.id);
+
+    this._fetcherService.activateFetcher(ids).subscribe(
+      () => {
+        this._getFetchers();
+      }
+    );
+  }
+
+  public disableFetcher() {
+    const ids: string[] = this.selectedFetchers.map(fetcher => fetcher.id);
+
+    this._fetcherService.deactivateeFetcher(ids).subscribe(
+      () => {
+        this._getFetchers();
+      }
+    );
+  }
 
   public openScheduleProduction(fetcherId: string): void {
     const dialogRef = this.dialog.open(ScheduleProductionDialogComponent, {
@@ -112,6 +128,8 @@ export class FetcherComponent implements OnInit {
   }
 
   private _getFetchers(): void {
+    this.selectedFetchers = [];
+
     this._fetcherService.getFetchers().subscribe((result: FetcherApiModel[]) =>  this.dataSource = result);
   }
 }

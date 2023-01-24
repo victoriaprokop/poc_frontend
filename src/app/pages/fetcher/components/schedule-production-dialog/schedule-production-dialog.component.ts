@@ -12,17 +12,16 @@ export class ScheduleProductionDialogComponent implements OnInit {
   public fetcherUptime: { key: boolean, value: string }[] = [
     {
       key: false,
-      value: "Always run this fetcher (preffered)"
+      value: "Always run this fetcher (preferred)"
     },
     {
       key: true,
-      value: "Schedule daily runtime"
+      value: "Schedule daily downtime"
     }
   ];
 
   public scheduleForm = new FormGroup({
     fetcherUptime: new FormControl<boolean>(false, Validators.required),
-    description: new FormControl<string>('', Validators.required),
     shutdown: new FormControl<string>('', Validators.required),
     reactivation: new FormControl<string>('', Validators.required),
   });

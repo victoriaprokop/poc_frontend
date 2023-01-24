@@ -29,8 +29,20 @@ export class FetcherService {
     return this._http.delete(`${this.apiUrl}/fetcher/${fetcherId}`);
   }
 
+  public deleteMultipleFetchers(fetcherIds: string[]) {
+    return this._http.post(`${this.apiUrl}/fetcher:delete`, { ids: fetcherIds });
+  }
+
   public restartFetcher(fetcherId: string) {
     return this._http.post(`${this.apiUrl}/fetcher/${fetcherId}`, fetcherId);
+  }
+
+  public activateFetcher(fetcherIds: string[]) {
+    return this._http.post(`${this.apiUrl}/fetcher:activate`, { ids: fetcherIds });
+  }
+
+  public deactivateeFetcher(fetcherIds: string[]) {
+    return this._http.post(`${this.apiUrl}/fetcher:deactivate`, { ids: fetcherIds });
   }
 
   public retrieveFetcherschedules(): Observable<Fetcherschedule[]> {

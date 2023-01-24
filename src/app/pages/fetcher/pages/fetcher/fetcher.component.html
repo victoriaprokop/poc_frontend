@@ -33,13 +33,13 @@
         </li>
         |
         <li>
-            <button mat-button color="accent" [disabled]="!selectedFetchers.length">
+            <button mat-button color="accent" [disabled]="!selectedFetchers.length" (click)="activateFetcher()">
                 <mat-icon>arrow_upward</mat-icon>
                 Activate
             </button>
         </li>
         <li>
-            <button mat-button color="warn" [disabled]="!selectedFetchers.length">
+            <button mat-button color="warn" [disabled]="!selectedFetchers.length" (click)="disableFetcher()">
                 <mat-icon>arrow_downward</mat-icon>
                 Disable
             </button>
@@ -51,7 +51,7 @@
             </button>
         </li>
         <li>
-            <button mat-button color="warn" [disabled]="!selectedFetchers.length || selectedFetchers.length > 1" (click)="openDeleteFetcherDialog(selectedFetchers[0])">
+            <button mat-button color="warn" [disabled]="!selectedFetchers.length" (click)="openDeleteFetcherDialog(selectedFetchers)">
                 <mat-icon>delete</mat-icon>
                 Delete
             </button>
@@ -62,9 +62,9 @@
         <!-- Checkbox Column -->
         <ng-container matColumnDef="checkbox">
             <th mat-header-cell *matHeaderCellDef>
-                <mat-checkbox (change)="checkAll($event)"></mat-checkbox>
+                <mat-checkbox (change)="checkAll($event)" [checked]="selectedFetchers.length === dataSource.length"></mat-checkbox>
             </th>
-            <td mat-cell *matCellDef="let element">
+            <td mat-cell *matCellDef="let element" [ngStyle]="{'border-left': element.active ? '5px solid #20c820' : '5px solid #f00000'}">
                 <mat-checkbox [checked]="element.checked" (change)="element.checked = $event.checked; checkItem()"></mat-checkbox>
             </td>
         </ng-container>
@@ -78,7 +78,7 @@
         <!-- Host Column -->
         <ng-container matColumnDef="host">
           <th mat-header-cell *matHeaderCellDef>Host</th>
-          <td mat-cell *matCellDef="let element">{{ element.domains }}.intradyn.com</td>
+          <td mat-cell *matCellDef="let element">{{ element.server }}</td>
         </ng-container>
       
         <!-- Protocol Column -->
@@ -108,7 +108,7 @@
                             <mat-icon>edit</mat-icon>
                             Edit
                         </button>
-                        <button mat-button>
+                        <button mat-button (click)="openScheduleProduction(element)">
                             <mat-icon>schedule</mat-icon>
                             Schedule
                         </button>
@@ -120,15 +120,15 @@
                             <mat-icon>check_circle</mat-icon>
                             Test
                         </button>
-                        <button mat-button color="accent" *ngIf="element.active">
+                        <button mat-button color="accent" *ngIf="!element.active">
                             <mat-icon>arrow_upward</mat-icon>
                             Activate
                         </button>
-                        <button mat-button color="warn" *ngIf="!element.active">
+                        <button mat-button color="warn" *ngIf="element.active">
                             <mat-icon>arrow_downward</mat-icon>
                             Disable
                         </button>
-                        <button mat-button color="warn" (click)="openDeleteFetcherDialog(element)">
+                        <button mat-button color="warn" (click)="openDeleteFetcherDialog([element])">
                             <mat-icon>delete</mat-icon>
                             Delete
                         </button>
@@ -136,7 +136,7 @@
                 </div>
             </td>
         </ng-container>
-      
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

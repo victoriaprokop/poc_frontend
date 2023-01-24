@@ -9,13 +9,19 @@ import { FetcherService } from '../../services/fetcher.service';
   styleUrls: ['./delete-fetcher-dialog.component.scss']
 })
 export class DeleteFetcherDialogComponent {
+  public namesToDisplay: string = this.data.length === 1 ? this.data[0].name : this.data.map(fetcher => fetcher.name).join(', ');
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: FetcherApiModel,
+    @Inject(MAT_DIALOG_DATA) public data: FetcherApiModel[],
     private _fetcherService: FetcherService,
     private _dialogRef: MatDialogRef<DeleteFetcherDialogComponent>
   ) {}
 
   deleteFetcher() {
-    this._fetcherService.deleteFetcher(this.data.id).subscribe(() => this._dialogRef.close(this.data.name));
+    if (this.data.length > 1) {
+      this._fetcherService.deleteMultipleFetchers(this.data.map(fetcher => fetcher.id)).subscribe(() => this._dialogRef.close(this.data));
+    } else {
+      this._fetcherService.deleteFetcher(this.data[0].id).subscribe(() => this._dialogRef.close(this.data));
+    }
   }
 }

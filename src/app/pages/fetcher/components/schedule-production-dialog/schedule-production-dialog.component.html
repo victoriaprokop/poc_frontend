@@ -13,12 +13,6 @@
         </div>
         <ng-container *ngIf="scheduleForm.value.fetcherUptime">
             <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Server Description</mat-label>
-                    <input matInput formControlName="description">
-                </mat-form-field>
-            </div>
-            <div>
                 <mat-label>Week days</mat-label>
                 <app-week-days-selector (onDaySelection)="selectedDays = $event"></app-week-days-selector>
             </div>

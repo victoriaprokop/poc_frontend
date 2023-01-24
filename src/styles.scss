@@ -1,4 +1,4 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .material-symbols-outlined {
     vertical-align: middle;
@@ -76,5 +76,15 @@ app-add-fetcher-dialog, app-edit-fetcher-dialog {
 
     .mdc-text-field.mdc-text-field--disabled .mdc-text-field__input {
         color: rgba(0, 0, 0, 0.87);
+    }
+}
+
+.mat-mdc-button > .mat-icon {
+    margin-right: 12px !important;
+}
+
+.mat-mdc-row {
+    &:hover {
+        background-color: #f0f0f0 !important;
     }
 }

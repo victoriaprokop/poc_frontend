@@ -48,7 +48,7 @@ export class AddFetcherDialogComponent {
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     protocol: new FormControl('', Validators.required),
-    port: new FormControl({ value: '', disabled: true}),
+    port: new FormControl('', Validators.required),
     mailbox: new FormControl('inbox', Validators.required),
     quick_delete: new FormControl(true, Validators.required),
     time_limit: new FormControl(0, Validators.required),
@@ -63,9 +63,7 @@ export class AddFetcherDialogComponent {
   public addFetcher() {
     const form: any = this.fetcherDataForm;
 
-    form.controls.port.enable();
     form.controls.mailbox.enable();
-
 
     const newFetcherData: FetcherPostRequest = {
       name: form.value.name,
@@ -81,8 +79,6 @@ export class AddFetcherDialogComponent {
       mailbox: form.value.mailbox,
       domains: form.value.domains,
     }
-
-    form.controls.port.disable();
 
     if (form.controls.mailbox.value === 'inbox') {
       this.fetcherDataForm.controls.mailbox.disable();
