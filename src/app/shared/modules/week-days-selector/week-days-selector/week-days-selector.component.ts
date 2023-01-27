@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-week-days-selector',
   templateUrl: './week-days-selector.component.html',
   styleUrls: ['./week-days-selector.component.scss']
 })
-export class WeekDaysSelectorComponent {
+export class WeekDaysSelectorComponent implements OnInit {
+  @Input() public selectedDays: number[] = [];
   @Output() private onDaySelection = new EventEmitter<number[]>;
 
   public daysList: { day: string, dayIndex: number, selected: boolean }[] = [
@@ -17,6 +18,14 @@ export class WeekDaysSelectorComponent {
     { day: 'Fri', dayIndex: 5, selected: false },
     { day: 'Sat', dayIndex: 6, selected: false },
   ]
+
+  ngOnInit(): void {
+    if (this.selectedDays.length) {
+      this.selectedDays.forEach((dayIndex) => {
+        this.daysList[dayIndex].selected = true;
+      });
+    }
+  }
 
   onDaySelectionChange(day: { day: string, selected: boolean }) {
     day.selected = !day.selected;

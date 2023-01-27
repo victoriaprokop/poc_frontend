@@ -111,18 +111,23 @@ export class FetcherComponent implements OnInit {
     );
   }
 
-  public openScheduleProduction(fetcherId: string): void {
+  public openScheduleProduction(fetcher: FetcherApiModel): void {
     const dialogRef = this.dialog.open(ScheduleProductionDialogComponent, {
-      data: fetcherId,
+      data: {
+        fetcherId: fetcher.id, 
+        schedule: fetcher.schedules[fetcher.schedules.length - 1]
+      }
     });
 
-    dialogRef.afterClosed().subscribe((name) => {
-      if (name) {
-        this._snackBar.open(`The fetcher ${name} schedule was successfully updated.`, 'x', {
+    dialogRef.afterClosed().subscribe((saved) => {
+      if (saved) {
+        this._snackBar.open(`The fetcher schedule was successfully updated.`, 'x', {
           duration: 5000,
           horizontalPosition: 'center',
           verticalPosition: 'top'
         });
+
+        this._getFetchers();
       }
     });
   }

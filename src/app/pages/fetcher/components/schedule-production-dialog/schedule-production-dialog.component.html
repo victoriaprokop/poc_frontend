@@ -14,16 +14,16 @@
         <ng-container *ngIf="scheduleForm.value.fetcherUptime">
             <div>
                 <mat-label>Week days</mat-label>
-                <app-week-days-selector (onDaySelection)="selectedDays = $event"></app-week-days-selector>
+                <app-week-days-selector [selectedDays]="selectedDays" (onDaySelection)="selectedDays = $event"></app-week-days-selector>
             </div>
             <div>
                 <mat-label class="timepicker-label">Shutdown time</mat-label>
-                <input [ngxTimepicker]="shutdownDefaultValue" formControlName="shutdown" [format]="24" readonly class="timepicker-field shutdown-time">
+                <input [ngxTimepicker]="shutdownDefaultValue" formControlName="shutdown" [format]="12" readonly class="timepicker-field shutdown-time">
                 <ngx-material-timepicker #shutdownDefaultValue></ngx-material-timepicker>
             </div>
             <div>
                 <mat-label class="timepicker-label">Reactivation time</mat-label>
-                <input [ngxTimepicker]="reactivationDefaultValue" formControlName="reactivation" [format]="24" readonly class="timepicker-field reactivation-time">
+                <input [ngxTimepicker]="reactivationDefaultValue" formControlName="reactivation" [format]="12" readonly class="timepicker-field reactivation-time">
                 <ngx-material-timepicker #reactivationDefaultValue></ngx-material-timepicker>
             </div>
         </ng-container>

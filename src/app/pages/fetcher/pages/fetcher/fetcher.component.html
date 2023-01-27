@@ -14,7 +14,7 @@
             </button>
         </li>
         <li>
-            <button mat-button [disabled]="!selectedFetchers.length || selectedFetchers.length > 1" (click)="openScheduleProduction(selectedFetchers[0].id)">
+            <button mat-button [disabled]="!selectedFetchers.length || selectedFetchers.length > 1" (click)="openScheduleProduction(selectedFetchers[0])">
                 <mat-icon>schedule</mat-icon>
                 Schedule
             </button>
