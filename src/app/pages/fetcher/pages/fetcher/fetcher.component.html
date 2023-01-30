@@ -33,13 +33,13 @@
         </li>
         |
         <li>
-            <button mat-button color="accent" [disabled]="!selectedFetchers.length" (click)="activateFetcher()">
+            <button mat-button color="accent" [disabled]="!selectedFetchers.length" (click)="activateFetcher(selectedFetchers)">
                 <mat-icon>arrow_upward</mat-icon>
                 Activate
             </button>
         </li>
         <li>
-            <button mat-button color="warn" [disabled]="!selectedFetchers.length" (click)="disableFetcher()">
+            <button mat-button color="warn" [disabled]="!selectedFetchers.length" (click)="disableFetcher(selectedFetchers)">
                 <mat-icon>arrow_downward</mat-icon>
                 Disable
             </button>
@@ -120,11 +120,11 @@
                             <mat-icon>check_circle</mat-icon>
                             Test
                         </button>
-                        <button mat-button color="accent" *ngIf="!element.active">
+                        <button mat-button color="accent" *ngIf="!element.active" (click)="activateFetcher([element])">
                             <mat-icon>arrow_upward</mat-icon>
                             Activate
                         </button>
-                        <button mat-button color="warn" *ngIf="element.active">
+                        <button mat-button color="warn" *ngIf="element.active" (click)="disableFetcher([element])">
                             <mat-icon>arrow_downward</mat-icon>
                             Disable
                         </button>

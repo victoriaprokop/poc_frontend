@@ -91,8 +91,8 @@ export class FetcherComponent implements OnInit {
     });
   }
 
-  public activateFetcher() {
-    const ids: string[] = this.selectedFetchers.map(fetcher => fetcher.id);
+  public activateFetcher(fetchers: FetcherApiModel[]) {
+    const ids: string[] = fetchers.map(fetcher => fetcher.id);
 
     this._fetcherService.activateFetcher(ids).subscribe(
       () => {
@@ -101,8 +101,8 @@ export class FetcherComponent implements OnInit {
     );
   }
 
-  public disableFetcher() {
-    const ids: string[] = this.selectedFetchers.map(fetcher => fetcher.id);
+  public disableFetcher(fetchers: FetcherApiModel[]) {
+    const ids: string[] = fetchers.map(fetcher => fetcher.id);
 
     this._fetcherService.deactivateeFetcher(ids).subscribe(
       () => {
