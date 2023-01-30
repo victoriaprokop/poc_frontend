@@ -15,7 +15,7 @@ import { FetcherService } from '../../services/fetcher.service';
   styleUrls: ['./fetcher.component.scss']
 })
 export class FetcherComponent implements OnInit {
-  public displayedColumns: string[] = ['checkbox',  'name',  'host',  'protocol', 'download_failures', 'state'];
+  public displayedColumns: string[] = ['checkbox',  'name',  'host',  'protocol', 'download_failures', 'state', 'actions'];
   public dataSource: FetcherApiModel[] = [];
   public selectedFetchers: FetcherApiModel[] = []
 
