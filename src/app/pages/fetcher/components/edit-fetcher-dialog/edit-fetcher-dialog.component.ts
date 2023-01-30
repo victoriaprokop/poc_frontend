@@ -51,7 +51,7 @@ export class EditFetcherDialogComponent implements OnInit {
     port: new FormControl(this.data.port, Validators.required),
     mailbox: new FormControl(this.data.mailbox || 'inbox', Validators.required),
     quick_delete: new FormControl(this.data.quick_delete, Validators.required),
-    time_limit: new FormControl(this.data.time_limit, Validators.required),
+    time_limit: new FormControl(this.data.time_limit, [Validators.required, Validators.min(0)]),
     active: new FormControl(this.data.active)
   });
 
