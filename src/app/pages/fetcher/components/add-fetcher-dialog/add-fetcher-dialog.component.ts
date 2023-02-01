@@ -42,7 +42,7 @@ export class AddFetcherDialogComponent {
 
   public fetcherDataForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    description: new FormControl(''),
     address: new FormControl('', Validators.required),
     domains: new FormControl(''),
     username: new FormControl('', Validators.required),

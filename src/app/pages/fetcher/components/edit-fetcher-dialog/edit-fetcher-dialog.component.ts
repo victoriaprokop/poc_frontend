@@ -42,7 +42,7 @@ export class EditFetcherDialogComponent implements OnInit {
 
   public fetcherDataForm = new FormGroup({
     name: new FormControl(this.data.name, Validators.required),
-    description: new FormControl(this.data.description, Validators.required),
+    description: new FormControl(this.data.description),
     address: new FormControl(this.data.server, Validators.required),
     domains: new FormControl(this.data.domains),
     username: new FormControl(this.data.username, Validators.required),
