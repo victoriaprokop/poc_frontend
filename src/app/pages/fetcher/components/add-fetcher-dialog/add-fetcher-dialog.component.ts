@@ -51,7 +51,7 @@ export class AddFetcherDialogComponent {
     port: new FormControl('', Validators.required),
     mailbox: new FormControl('inbox', Validators.required),
     quick_delete: new FormControl(true, Validators.required),
-    time_limit: new FormControl(0, [Validators.required, Validators.min(0)]),
+    time_limit: new FormControl(15, [Validators.required, Validators.min(0)]),
     active: new FormControl(false)
   });
 
