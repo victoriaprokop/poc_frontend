@@ -57,6 +57,10 @@ export class FetcherService {
     return this._http.post<Fetcherschedule>(`${this.apiUrl}/fetcherschedule`, request);
   }
 
+  public updateFetcherschedule(fetcherscheduleid: number, request: any): Observable<Fetcherschedule> {
+    return this._http.put<Fetcherschedule>(`${this.apiUrl}/fetcherschedule/${fetcherscheduleid}`, request);
+  }
+
   public putFetcherschedule(fetcherId: string, request: any) {
     return this._http.put(`${this.apiUrl}/fetcherschedule/${fetcherId}`, request);
   }

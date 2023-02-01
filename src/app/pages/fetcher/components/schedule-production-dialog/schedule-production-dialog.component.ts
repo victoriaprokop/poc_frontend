@@ -36,7 +36,7 @@ export class ScheduleProductionDialogComponent implements OnInit {
   public fetcherschedule: any = undefined;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private _fetcherService: FetcherService,
     private _dialogRef: MatDialogRef<ScheduleProductionDialogComponent>
   ) {}
@@ -53,7 +53,11 @@ export class ScheduleProductionDialogComponent implements OnInit {
       downtime_end: this.transformTimeTo24(this.scheduleForm.value.reactivation)
     }
 
-    this._fetcherService.createFetcherschedule(request).subscribe(() => this._dialogRef.close(true));
+    if (this.data.schedule) {
+      this._fetcherService.updateFetcherschedule(this.data.schedule.id, request).subscribe(() => this._dialogRef.close(true));
+    } else {
+      this._fetcherService.createFetcherschedule(request).subscribe(() => this._dialogRef.close(true));
+    }
   }
 
   private transformTimeTo12(time: any) {
