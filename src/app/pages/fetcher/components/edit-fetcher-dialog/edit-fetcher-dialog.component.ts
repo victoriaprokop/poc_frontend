@@ -46,7 +46,7 @@ export class EditFetcherDialogComponent implements OnInit {
     address: new FormControl(this.data.server, Validators.required),
     domains: new FormControl(this.data.domains),
     username: new FormControl(this.data.username, Validators.required),
-    password: new FormControl('', Validators.required),
+    password: new FormControl(this.data.password, Validators.required),
     protocol: new FormControl(this.data.protocol, Validators.required),
     port: new FormControl(this.data.port, Validators.required),
     mailbox: new FormControl(this.data.mailbox || 'inbox', Validators.required),
