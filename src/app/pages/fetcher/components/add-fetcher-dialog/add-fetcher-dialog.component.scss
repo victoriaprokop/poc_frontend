@@ -10,3 +10,12 @@
     display: block;
     margin-bottom: 20px;
 }
+
+form {
+    > div {
+        .material-symbols-outlined {
+            cursor: default;
+            margin-left: 10px;
+        }
+    }
+}
