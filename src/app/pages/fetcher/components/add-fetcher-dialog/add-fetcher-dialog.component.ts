@@ -13,7 +13,7 @@ import { FetcherService } from '../../services/fetcher.service';
 export class AddFetcherDialogComponent {
   public protocolOptions = [
     {
-      protocol: 'IMAP',
+      protocol: 'IMAP4',
       port: '143'
     },
     {
