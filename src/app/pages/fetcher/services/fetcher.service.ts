@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,8 +13,10 @@ export class FetcherService {
 
   constructor(private _http: HttpClient) { }
 
-  public getFetchers(): Observable<FetcherApiModel[]> {
-    return this._http.get<FetcherApiModel[]>(this.apiUrl + '/fetcher');
+  public getFetchers(sortOption: string): Observable<FetcherApiModel[]> {
+    return this._http.get<FetcherApiModel[]>(this.apiUrl + '/fetcher', { 
+      params: sortOption.length ? { order_by: sortOption } : null
+    });
   }
 
   public createFetcher(request: FetcherPostRequest): Observable<FetcherApiModel> {

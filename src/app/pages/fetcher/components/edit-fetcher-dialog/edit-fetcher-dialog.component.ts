@@ -89,7 +89,7 @@ export class EditFetcherDialogComponent implements OnInit {
       this.fetcherDataForm.controls.mailbox.disable();
     }
 
-    this._fetcherService.updateFetcher(this.data.id, newFetcherData).subscribe(() => this._dialogRef.close(newFetcherData.name));
+    this._fetcherService.updateFetcher(this.data.id, newFetcherData).subscribe(() => this._dialogRef.close({name: newFetcherData.name, id: this.data.id}));
   }
 
   public onProtocolValueChange(value: any) {

@@ -18,13 +18,13 @@
 
     li {
         margin: 10px;
-
-        .material-symbols-outlined {
-            vertical-align: middle;
-        }
     }
 }
 
-.mat-mdc-menu-item .material-symbols-outlined {
-    vertical-align: middle;
+.mat-mdc-row {
+    transition: .3s all;
+}
+
+.updated {
+    background-color: #d0ffdc !important;
 }

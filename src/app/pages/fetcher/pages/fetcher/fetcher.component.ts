@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddFetcherDialogComponent } from '../../components/add-fetcher-dialog/add-fetcher-dialog.component';
 import { DeleteFetcherDialogComponent } from '../../components/delete-fetcher-dialog/delete-fetcher-dialog.component';
 import { EditFetcherDialogComponent } from '../../components/edit-fetcher-dialog/edit-fetcher-dialog.component';
@@ -16,27 +18,35 @@ import { FetcherService } from '../../services/fetcher.service';
 })
 export class FetcherComponent implements OnInit {
   public displayedColumns: string[] = ['checkbox',  'name',  'host',  'protocol', 'download_failures', 'state', 'actions'];
-  public dataSource: FetcherApiModel[] = [];
-  public selectedFetchers: FetcherApiModel[] = []
+  public fetchers: FetcherApiModel[] = [];
+  public selectedFetchers: FetcherApiModel[] = [];
+
+  public tableDataSource = new MatTableDataSource([]);
+
+  public fetchersSortingState: string = '';
 
   constructor(
     public dialog: MatDialog,
     private _fetcherService: FetcherService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   public ngOnInit(): void {
+    this.fetchersSortingState = this.route.snapshot.queryParams['order_by'] ?? null;
+
     this._getFetchers();
   }
 
-  checkAll(event: MatCheckboxChange) {
-    this.dataSource.forEach((x) => (x.checked = event.checked));
+  public checkAll(event: MatCheckboxChange) {
+    this.fetchers.forEach((x) => (x.checked = event.checked));
 
-    this.selectedFetchers = this.dataSource.filter((x) => x.checked);
+    this.selectedFetchers = this.fetchers.filter((x) => x.checked);
   }
 
-  checkItem() {
-    this.selectedFetchers = this.dataSource.filter((x) => x.checked);
+  public checkItem() {
+    this.selectedFetchers = this.fetchers.filter((x) => x.checked);
   }
 
   public openAddFetcherDialog(): void {
@@ -60,15 +70,15 @@ export class FetcherComponent implements OnInit {
       data: fetcher,
     });
 
-    dialogRef.afterClosed().subscribe((name) => {
-      if (name) {
-        this._snackBar.open(`The fetcher ${name} was successfully updated.`, 'x', {
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data.name) {
+        this._snackBar.open(`The fetcher ${data.name} was successfully updated.`, 'x', {
           duration: 5000,
           horizontalPosition: 'center',
           verticalPosition: 'top'
         });
 
-        this._getFetchers();
+        this._getFetchers(true, data.id);
       }
     });
   }
@@ -132,9 +142,39 @@ export class FetcherComponent implements OnInit {
     });
   }
 
-  private _getFetchers(): void {
+  public sortingChanged(sortingOption: string) {
+    this.fetchersSortingState = sortingOption;
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        order_by: sortingOption,
+      },
+      queryParamsHandling: 'merge',
+    });
+
+    this._getFetchers();
+  }
+
+  private _getFetchers(fetcherUpdated?: boolean, fetcherId?: string): void {
     this.selectedFetchers = [];
 
-    this._fetcherService.getFetchers().subscribe((result: FetcherApiModel[]) =>  this.dataSource = result);
+    this._fetcherService.getFetchers(this.fetchersSortingState).subscribe(
+      (result: FetcherApiModel[]) =>  {
+        this.fetchers = result;
+
+        if (fetcherUpdated && fetcherId) {
+          setTimeout(() => {
+            const row = document.getElementById(fetcherId);
+  
+            row?.classList.add('updated');
+
+            setTimeout(() => {
+              row?.classList.remove('updated');
+            }, 3000);
+          });
+        }
+      }
+    );
   }
 }

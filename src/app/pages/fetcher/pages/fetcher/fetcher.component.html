@@ -5,7 +5,7 @@
     Fetcher
 </button>
 
-<ng-container *ngIf="dataSource.length; else noItems">
+<ng-container *ngIf="fetchers.length; else noItems">
     <ul class="actions-wrapper">
         <li>
             <button mat-button [disabled]="!selectedFetchers.length || selectedFetchers.length > 1" (click)="openEditDialog(selectedFetchers[0])">
@@ -58,11 +58,11 @@
         </li>
     </ul>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="fetchers" class="mat-elevation-z8">
         <!-- Checkbox Column -->
         <ng-container matColumnDef="checkbox">
             <th mat-header-cell *matHeaderCellDef style="width: 77px">
-                <mat-checkbox (change)="checkAll($event)" [checked]="selectedFetchers.length === dataSource.length"></mat-checkbox>
+                <mat-checkbox (change)="checkAll($event)" [checked]="selectedFetchers.length === fetchers.length"></mat-checkbox>
             </th>
             <td
                 mat-cell
@@ -77,19 +77,43 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <th mat-header-cell *matHeaderCellDef>
+                Name
+                <span class="material-symbols-outlined sort-icon"  (click)="sortingChanged('name desc')" *ngIf="fetchersSortingState === 'name asc'; else sortNameAsc">
+                    arrow_downward
+                </span>
+                <ng-template #sortNameAsc>
+                    <span  class="material-symbols-outlined sort-icon"  (click)="sortingChanged('name asc')">arrow_upward</span>
+                </ng-template>
+            </th>
             <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
         <!-- Host Column -->
         <ng-container matColumnDef="host">
-            <th mat-header-cell *matHeaderCellDef>Host</th>
+            <th mat-header-cell *matHeaderCellDef>
+                Host
+                <span class="material-symbols-outlined sort-icon" (click)="sortingChanged('server desc')" *ngIf="fetchersSortingState === 'server asc'; else sortServerAsc">
+                    arrow_downward
+                </span>
+                <ng-template #sortServerAsc>
+                    <span class="material-symbols-outlined sort-icon" (click)="sortingChanged('server asc')">arrow_upward</span>
+                </ng-template>
+            </th>
             <td mat-cell *matCellDef="let element">{{ element.server }}</td>
         </ng-container>
 
         <!-- Protocol Column -->
         <ng-container matColumnDef="protocol">
-            <th mat-header-cell *matHeaderCellDef>Protocol</th>
+            <th mat-header-cell *matHeaderCellDef>
+                Protocol
+                <span class="material-symbols-outlined sort-icon" (click)="sortingChanged('protocol desc')" *ngIf="fetchersSortingState === 'protocol asc'; else sortProtocolAsc">
+                    arrow_downward
+                </span>
+                <ng-template #sortProtocolAsc>
+                    <span class="material-symbols-outlined sort-icon" (click)="sortingChanged('protocol asc')">arrow_upward</span>
+                </ng-template>
+            </th>
             <td mat-cell *matCellDef="let element">{{ element.protocol }}</td>
         </ng-container>
 
@@ -101,17 +125,36 @@
 
         <!-- State Column -->
         <ng-container matColumnDef="state">
-            <th mat-header-cell *matHeaderCellDef>State</th>
+            <th mat-header-cell *matHeaderCellDef>
+                State
+                <span class="material-symbols-outlined sort-icon" (click)="sortingChanged('active desc')" *ngIf="fetchersSortingState === 'active asc'; else sortActiveAsc">
+                    arrow_downward
+                </span>
+                <ng-template #sortActiveAsc>
+                    <span class="material-symbols-outlined sort-icon" (click)="sortingChanged('active asc')">arrow_upward</span>
+                </ng-template>
+            </th>
             <td mat-cell *matCellDef="let element">{{ element.active ? "active" : "disabled" }}</td>
         </ng-container>
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <div class="d-flex align-items-center justify-content-end">
-                    <button mat-icon-button color="accent" *ngIf="!element.active" (click)="activateFetcher([element])">
+                    <button 
+                        mat-icon-button 
+                        color="accent" 
+                        *ngIf="!element.active" (click)="activateFetcher([element])"
+                        matTooltip="activate"
+                    >
                         <span class="material-symbols-outlined">arrow_upward</span>
                     </button>
-                    <button mat-icon-button color="warn" *ngIf="element.active" (click)="disableFetcher([element])">
+                    <button 
+                        mat-icon-button 
+                        color="warn" 
+                        *ngIf="element.active" 
+                        (click)="disableFetcher([element])"
+                        matTooltip="disable"
+                    >
                         <span class="material-symbols-outlined">arrow_downward</span>
                     </button>
                     <button mat-icon-button color="warn" (click)="openDeleteFetcherDialog([element])">
@@ -143,6 +186,7 @@
         <tr 
             mat-row 
             *matRowDef="let row; columns: displayedColumns" 
+            [id]="row.id"
             [ngStyle]="{ 
                 'font-style': !row.active ? 'italic' : 'normal', 
                 'background-color': !row.active ? '#f6f6f6' : 'transparent'

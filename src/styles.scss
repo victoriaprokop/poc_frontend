@@ -91,3 +91,22 @@ app-add-fetcher-dialog, app-edit-fetcher-dialog {
         background-color: #f0f0f0 !important;
     }
 }
+
+.mdc-button, .mat-mdc-menu-item {
+    .material-symbols-outlined {
+        vertical-align: middle;
+    }
+}
+
+.mat-mdc-table .sort-icon {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 14px;
+    opacity: 0.6;
+    vertical-align: middle;
+    transition: .2s all;
+
+    &:hover {
+        opacity: 1;
+    }
+}
