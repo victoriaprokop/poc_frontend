@@ -13,3 +13,6 @@ $intradyn-theme: mat.define-light-theme((
 ));
 
 @include mat.button-theme($intradyn-theme);
+
+@include mat.icon-button-theme($intradyn-theme);
+

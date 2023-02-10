@@ -101,6 +101,12 @@ export class EditFetcherDialogComponent implements OnInit {
     this.setMailboxAsInbox(value);
   }
 
+  public onTimeoutKeydown(event: KeyboardEvent) {
+    if (event.key === '-') {
+      event.preventDefault();
+    }
+  }
+
   private setMailboxAsInbox(protocol: string | null) {
     const form = this.fetcherDataForm;
 

@@ -12,6 +12,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input'
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
@@ -56,7 +57,8 @@ import { WeekDaysSelectorModule } from 'src/app/shared/modules/week-days-selecto
     MatSnackBarModule,
     NgxMaterialTimepickerModule,
     WeekDaysSelectorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule
   ]
 })
 export class FetcherModule { }

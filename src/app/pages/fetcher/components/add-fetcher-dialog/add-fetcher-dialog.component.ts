@@ -101,4 +101,10 @@ export class AddFetcherDialogComponent {
       this.fetcherDataForm.controls.mailbox.enable();
     }
   }
+
+  public onTimeoutKeydown(event: KeyboardEvent) {
+    if (event.key === '-') {
+      event.preventDefault();
+    }
+  }
 }

@@ -71,7 +71,7 @@
         <div class="d-flex align-items-baseline">
             <mat-form-field appearance="fill">
                 <mat-label>Fetch Timeout</mat-label>
-                <input matInput formControlName="time_limit" type="number" min="0">
+                <input matInput formControlName="time_limit" type="number" min="0" (keydown)="onTimeoutKeydown($event)">
             </mat-form-field>
             <span class="material-symbols-outlined" matTooltip="The fetcher timeout is a hard limit on the number of minutes the fetcher is allowed to spend fetching one email. Zero means no limit.">help</span>
         </div>
