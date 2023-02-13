@@ -15,7 +15,7 @@ export class FetcherService {
 
   public getFetchers(sortOption: string): Observable<FetcherApiModel[]> {
     return this._http.get<FetcherApiModel[]>(this.apiUrl + '/fetcher', { 
-      params: sortOption.length ? { order_by: sortOption } : null
+      params: sortOption?.length ? { order_by: sortOption } : null
     });
   }
 
