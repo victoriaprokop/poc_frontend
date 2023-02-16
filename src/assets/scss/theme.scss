@@ -1,8 +1,9 @@
 @use '@angular/material' as mat;
+@import './custom-palettes.scss';
 
 @include mat.core();
 
-$intradyn-primary: mat.define-palette(mat.$indigo-palette, 500);
+$intradyn-primary: mat.define-palette($intradyn-palette, 600);
 $intradyn-accent: mat.define-palette(mat.$green-palette);
 
 $intradyn-theme: mat.define-light-theme((
@@ -12,7 +13,17 @@ $intradyn-theme: mat.define-light-theme((
     ),
 ));
 
+$checkbox-theme: mat.define-light-theme((
+    color: (
+        primary: $intradyn-primary,
+        accent: $intradyn-primary,
+    ),
+));
+
 @include mat.button-theme($intradyn-theme);
+@include mat.checkbox-theme($checkbox-theme);
+@include mat.radio-theme($checkbox-theme);
+
 
 @include mat.icon-button-theme($intradyn-theme);
 
