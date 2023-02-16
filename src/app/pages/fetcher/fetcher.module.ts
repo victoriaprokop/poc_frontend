@@ -25,6 +25,7 @@ import { AddFetcherDialogComponent } from './components/add-fetcher-dialog/add-f
 import { DeleteFetcherDialogComponent } from './components/delete-fetcher-dialog/delete-fetcher-dialog.component';
 import { ScheduleProductionDialogComponent } from './components/schedule-production-dialog/schedule-production-dialog.component';
 import { WeekDaysSelectorModule } from 'src/app/shared/modules/week-days-selector/week-days-selector/week-days-selector.module';
+import { SortingButtonModule } from 'src/app/shared/modules/sorting-button/sorting-button.module';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { WeekDaysSelectorModule } from 'src/app/shared/modules/week-days-selecto
     MatSnackBarModule,
     NgxMaterialTimepickerModule,
     WeekDaysSelectorModule,
+    SortingButtonModule,
     MatTooltipModule,
     MatMenuModule
   ]

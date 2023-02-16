@@ -1,5 +1,6 @@
 :host {
     display: block;
+    margin: 0 8px;
     min-height: 100vh;
     padding: 30px;
 }
@@ -23,6 +24,18 @@
 
 .mat-mdc-row {
     transition: .3s all;
+
+    .material-symbols-outlined {
+        font-size: 18px;
+    }
+}
+
+.inactive {
+    font-style: italic;
+
+    td {
+        color: #aaa;
+    }
 }
 
 .updated {

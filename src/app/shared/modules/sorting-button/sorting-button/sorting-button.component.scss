@@ -1,0 +1,35 @@
+:host {
+    align-items: center;
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    
+    div {
+        cursor: pointer;
+        margin: 2px;
+
+        &.arrow-up {
+            border-color: transparent transparent #ddd transparent;
+            border-width: 0 6px 6px 6px;
+            border-style: solid;
+            height: 0;
+            width: 0;
+
+            &.active {
+                border-color: transparent transparent #aaa transparent;
+            }
+        }
+
+        &.arrow-down {
+            border-color: #ddd transparent transparent transparent;
+            border-style: solid;
+            border-width: 6px 6px 0 6px;
+            height: 0;
+            width: 0;
+
+            &.active {
+                border-color: #aaa transparent transparent transparent;
+            }
+        }
+    }
+}
