@@ -95,26 +95,10 @@
             <td mat-cell *matCellDef="let element">{{ element.server }}</td>
         </ng-container>
 
-        <!-- Protocol Column -->
-        <ng-container matColumnDef="protocol">
-            <th class="cursor-pointer" mat-header-cell *matHeaderCellDef (click)="sortingChanged(fetchersSortingState === 'protocol asc' ? 'protocol desc' : 'protocol asc')">
-                Protocol
-
-                <app-sorting-button  [activeSorting]="fetchersSortingState === 'protocol asc' ? 'up' : false || fetchersSortingState === 'protocol desc' ? 'down' : ''"></app-sorting-button>
-            </th>
-            <td mat-cell *matCellDef="let element">{{ element.protocol }}</td>
-        </ng-container>
-
-        <!-- Download Failures Column -->
-        <ng-container matColumnDef="download_failures">
-            <th mat-header-cell *matHeaderCellDef>Download Failures</th>
-            <td mat-cell *matCellDef="let element">{{ element.download_failures }}</td>
-        </ng-container>
-
         <!-- State Column -->
         <ng-container matColumnDef="state">
             <th class="cursor-pointer" mat-header-cell *matHeaderCellDef (click)="sortingChanged(fetchersSortingState === 'active asc' ? 'active desc' : 'active asc')">
-                State
+                Status
 
                 <app-sorting-button  [activeSorting]="fetchersSortingState === 'active asc' ? 'up' : false || fetchersSortingState === 'active desc' ? 'down' : ''"></app-sorting-button>
             </th>
@@ -174,6 +158,24 @@
                 </div>
             </td>
         </ng-container>
+
+        <!-- Protocol Column -->
+        <ng-container matColumnDef="protocol">
+            <th class="cursor-pointer" mat-header-cell *matHeaderCellDef (click)="sortingChanged(fetchersSortingState === 'protocol asc' ? 'protocol desc' : 'protocol asc')">
+                Protocol
+
+                <app-sorting-button  [activeSorting]="fetchersSortingState === 'protocol asc' ? 'up' : false || fetchersSortingState === 'protocol desc' ? 'down' : ''"></app-sorting-button>
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.protocol }}</td>
+        </ng-container>
+
+        <!-- Download Failures Column -->
+        <ng-container matColumnDef="download_failures">
+            <th mat-header-cell *matHeaderCellDef>Download Failures</th>
+            <td mat-cell *matCellDef="let element">{{ element.download_failures }}</td>
+        </ng-container>
+
+        
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr 
