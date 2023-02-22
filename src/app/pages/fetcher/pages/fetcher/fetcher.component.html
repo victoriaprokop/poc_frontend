@@ -142,7 +142,7 @@
                     >
                         <span class="material-symbols-outlined">arrow_downward</span>
                     </button>
-                    <button mat-icon-button color="warn" (click)="$event.stopPropagation(); openDeleteFetcherDialog([element])">
+                    <button mat-icon-button color="warn" (click)="$event.stopPropagation(); openDeleteFetcherDialog([element])" matTooltip="delete">
                         <span class="material-symbols-outlined">delete</span>
                     </button>
                     <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
@@ -150,6 +150,10 @@
                     </button>
 
                     <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="openEditDialog(element)">
+                            <span class="material-symbols-outlined">edit</span>
+                            Edit
+                        </button>
                         <button mat-menu-item (click)="openScheduleProduction(element)">
                             <span class="material-symbols-outlined">schedule</span>
                             Schedule
@@ -161,6 +165,10 @@
                         <button mat-menu-item>
                             <span class="material-symbols-outlined">check_circle</span>
                             Test
+                        </button>
+                        <button mat-menu-item>
+                            <span class="material-symbols-outlined">restart_alt</span>
+                            Restart
                         </button>
                     </mat-menu>
                 </div>

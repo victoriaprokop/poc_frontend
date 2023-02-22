@@ -30,6 +30,13 @@
     }
 }
 
+::ng-deep .mat-mdc-menu-content {
+    .material-symbols-outlined {
+        font-size: 18px;
+        margin-right: 8px;
+    }
+}
+
 .inactive {
     font-style: italic;
 
