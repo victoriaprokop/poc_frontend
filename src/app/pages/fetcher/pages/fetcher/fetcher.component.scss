@@ -48,3 +48,7 @@
 .updated {
     background-color: #eaf8fd !important;
 }
+
+.mat-mdc-row:not(:hover) .row-actions {
+    visibility: hidden;
+}
