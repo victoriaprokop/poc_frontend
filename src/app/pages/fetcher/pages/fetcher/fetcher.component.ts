@@ -71,7 +71,7 @@ export class FetcherComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((data) => {
-      if (data.name) {
+      if (data?.name) {
         this._snackBar.open(`The fetcher ${data.name} was successfully updated.`, 'x', {
           duration: 5000,
           horizontalPosition: 'center',
@@ -176,5 +176,17 @@ export class FetcherComponent implements OnInit {
         }
       }
     );
+  }
+
+  public menuOpened(id: string) {
+    const row = document.getElementById(id);
+
+    row?.classList.add('active');
+  }
+
+  public menuClosed(id: string) {
+    const row = document.getElementById(id);
+
+    row?.classList.remove('active');
   }
 }

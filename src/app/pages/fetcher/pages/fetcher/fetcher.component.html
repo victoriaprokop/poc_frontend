@@ -129,7 +129,7 @@
                     <button mat-icon-button color="warn" (click)="$event.stopPropagation(); openDeleteFetcherDialog([element])" matTooltip="delete">
                         <span class="material-symbols-outlined">delete</span>
                     </button>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()" (menuOpened)="menuOpened(element.id)" (menuClosed)="menuClosed(element.id)">
                         <span class="material-symbols-outlined">more_horiz</span>
                     </button>
 

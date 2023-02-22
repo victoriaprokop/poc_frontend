@@ -49,6 +49,14 @@
     background-color: #eaf8fd !important;
 }
 
-.mat-mdc-row:not(:hover) .row-actions {
-    visibility: hidden;
+.mat-mdc-row {
+    .row-actions {
+        visibility: hidden;
+    }
+    
+    &.active, &:hover {
+        .row-actions {
+            visibility: visible;
+        }
+    }
 }

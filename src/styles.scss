@@ -91,7 +91,7 @@ app-add-fetcher-dialog, app-edit-fetcher-dialog {
 }
 
 .mat-mdc-row {
-    &:hover {
+    &:hover, &.active {
         background-color: #f0f0f0 !important;
     }
 }
